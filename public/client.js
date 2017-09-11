@@ -58,7 +58,7 @@
 
         socket.on("start", function () {
             enableButtons();
-            setMessage("Round " + (points.win + points.lose + points.draw + 1));
+            setMessage("Roundie " + (points.win + points.lose + points.draw + 1));
         });
 
         socket.on("win", function () {
