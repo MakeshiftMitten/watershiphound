@@ -35,7 +35,7 @@
      * @param {string} text
      */
     function setMessage(text) {
-        message.innerHTML = text;
+        //message.innerHTML = text;
     }
 
     /**

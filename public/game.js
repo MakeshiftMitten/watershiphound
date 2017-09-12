@@ -1,0 +1,263 @@
+function gameObject(){
+    
+    //Game Dimensions in Game Units. I think of them as meters, but this is what you will do all of your position updating in. 
+    this.gameWidth = 200 ;
+    this.gameHeight = this.gameWidth * 3.0/4.0; 
+    
+    
+
+
+
+    this.dimensions = 5;
+
+    var FloatingInSpace = {"Background":"#000000", "Ship":"#00FF00", "Enemy":"#CEF5FB", "Bomb":"#343A3B", "Well":"#8AAAAF"};
+
+    var Colors = {Background:"#000000", "Ship":"#00FF00", HighBlue: "#0000FF", MidBlue: "#000099", LowBlue: "#000044", HighGreen: "#00FF00", MidGreen: "#009900", LowGreen: "#004400"};
+
+    //var FloatingInSpace = {"Background":"#5D6F72", "Ship":"#80CCD8", "Enemy":"#CEF5FB", "Bomb":"#343A3B", "Well":"#8AAAAF"};
+    
+    var stockKeyBinds = {
+      Common : {
+        SWITCH : 32,
+        CAMERA : 67
+      },
+      //SHIP
+      Ship : {
+        ACCEL : 87,
+        DECEL : 83,
+        TURNRIGHT : 68,
+        TURNLEFT : 65,
+        SHOOT : 73,
+        SECONDARY : 75,
+        SPECIAL: 16
+      },
+    };
+
+    //this.controlsMenu = new controlsMenu();
+    //this.mapMenu = new mapMenu();
+
+    this.KeyBinds = stockKeyBinds;
+
+    this.menuTimerMax = 1;
+    this.menuTimer = this.menuTimerMax;
+
+    this.screen = "GAME";
+    this.colors = Colors;
+    
+    //Canvas Context for easy referencing
+    this.Canvas = document.getElementById('gameCanvas');
+    this.ctx = this.Canvas.getContext("2d");       
+
+    this.draw = function(){
+      // if(this.screen == "MENU"){
+      //   draw.drawControlsMenu();
+      //   this.controlsMenu.draw();
+      // }
+      // else if(this.screen =="GAME"){
+         draw.drawGame();
+      //   }
+      // else if(this.screen =="EQUIP"){
+      //   draw.drawEquipmentMenu();
+      // }
+      // else if(this.screen =="MAP"){
+      //   draw.drawMapMenu();
+      // }
+      // else if(this.screen =="TITLE"){
+      //   draw.drawTitleMenu();
+      // }
+
+    }
+
+    // this.bossDefeated = function(){
+    //     this.bossRoomCount--;
+    //     if(this.bossRoomCount == 0)
+    //         alert("You Defeated the Four Show Stoppers, but can you clear the board? Aim for all safe nodes!");
+    // }
+
+    this.update = function(dt){
+        // this.menuTimer -= dt;
+
+        // //Handle Menu Switches
+        // if(game.keys[66]){
+        //     if(this.menuTimer < 0){
+        //         if(this.screen == "MENU"){
+        //             this.screen = "GAME";
+
+        //         }
+        //         else {
+        //             this.screen = "MENU";
+
+        //         }
+        //         this.menuTimer = this.menuTimerMax;
+        //     }
+        // }
+
+        // else if(game.keys[78]){
+        //     if(this.menuTimer < 0){
+        //         if(this.screen == "EQUIP"){
+        //             this.screen = "GAME";                
+        //         }
+        //         else {
+        //             this.screen = "EQUIP";                    
+        //         }
+        //         this.menuTimer = this.menuTimerMax;
+        //     }
+        // }
+
+        // else if(game.keys[77]){
+        //     if(this.menuTimer < 0){
+        //         if(this.screen == "MAP"){
+        //             this.screen = "GAME";    
+        //             //this.mapMenu.load();            
+        //         }
+        //         else {
+        //             this.screen = "MAP";                    
+        //             //this.mapMenu.load(); 
+        //         }
+        //         this.menuTimer = this.menuTimerMax;
+        //     }
+        // }
+
+        // //Handle Menu Updates
+        // if(this.screen == "GAME"){
+        //     this.updateGame(dt);
+        // }
+        // else if(this.screen == "MENU"){    
+        //     this.updateControlsMenu(dt);
+        // }
+        // else if(this.screen == "MAP"){
+        //     this.updateMapMenu(dt);
+        // }
+        // else if(this.screen == "EQUIP"){
+        //     this.updateEquipmentMenu(dt);
+        // }
+        // else if(this.screen == "TITLE"){
+        //     this.updateTitleMenu(dt);
+        // }
+    }    
+
+    // this.updateEquipmentMenu = function(dt){
+
+    // }
+
+    // this.updateMapMenu = function(dt){
+    //     this.mapMenu.update(dt);
+    // }
+
+    // this.updateControlsMenu = function(dt){
+    //     this.controlsMenu.update(dt);
+    // }
+
+    // this.updateTitleMenu = function(dt){
+    //     this.titleMenu.update(dt);
+    // }
+
+    // this.updateGame = function(dt){
+
+    //     for(var p = 0; p < game.players.length; p++){
+    //         game.players[p].update(dt);
+    //     } 
+
+    //     this.currentSector.update(dt);
+    // }
+           
+    
+    //Physics Variables
+    //this.gravity = 10;
+    this.gravity = 0;
+    this.height = 200;
+    this.width = 200;
+    
+    //Game Settings
+    this.level = 0;
+    this.score = 0;
+    
+    //Set up game object arrays here
+    this.clicks = [];
+    this.keys = [];
+    this.buttons = [];
+    this.meters = [];
+
+    this.players = [];
+    this.boxes = [];
+    this.coordinates = [];
+
+    this.bossRooms = [];
+
+    // this.currentSector = new worldSector(0, 0);
+    this.sectors = [];
+
+    this.streamers = [];
+
+    this.drawType = "player";
+    this.common = new commonLib();
+
+    //this.bulletManager = new bulletManager();
+    //this.enemyManager = new enemyManager();
+
+    // this.loadSector = function(x, y){
+
+    //     if(x < -2 || x > 2 || y < -2 || y > 2){
+    //         x = 0;
+    //         y = 0;
+    //         game.players[0].x = 0;
+    //         game.players[0].y = 0;
+    //     }
+    //     this.currentSector = this.getSector(x, y);
+    //     if(this.currentSector == undefined){
+    //         this.sectors[x+Math.floor(this.dimensions/2)][y+Math.floor(this.dimensions/2)] = 
+    //                 new worldSector(x, y, this.sectorWidth, this.sectorHeight);
+
+    //         this.currentSector = this.sectors[x+Math.floor(this.dimensions/2)][y+Math.floor(this.dimensions/2)];            
+    //         this.currentSector.generate();
+    //     }
+    // }
+
+    // this.getSector = function(x, y){        
+    //     return this.sectors[x+Math.floor(this.dimensions/2)][y+Math.floor(this.dimensions/2)];        
+    // }
+    
+    //Game Objects            
+    //this.meterTypes = {"Level":0};        
+    
+    this.init = function(){
+        //Add a player
+        //this.players.push(new player(this.gameWidth/2, this.gameHeight/2));
+        //this.players.push(new player(0, 0));       
+        // this.boxes.push(new box(this.gameWidth/2, this.gameHeight/2));
+        // this.boxes.push(new box(10, 10));
+        // for(var x = 0; x < 200; x+=25){
+        //     this.coordinates.push(new coordinate(-x, x));
+        //     this.coordinates.push(new coordinate(x, x));
+        //     this.coordinates.push(new coordinate(-x, -x));
+        //     this.coordinates.push(new coordinate(x, -x));
+        // }
+
+        // for(var x = 0; x < 5; x++){
+        //     this.sectors.push([]);
+        //     for(var y = 0; y < 5; y++){
+        //         this.sectors[x].push(undefined);
+        //     }
+
+        // }
+
+        //Add Meters         
+        //this.meters.push(new meter(this.gameWidth/2, this.gameHeight - 17.5, this.meterTypes.Level));
+        
+
+        //Time Stuff
+        this.lastTime = Date.now();
+        this.nowTime = this.lastTime;
+    }
+    
+    
+            // this.levelUp = function(){
+            //     this.currentLevelTimer = 0;            
+            // }
+    /*
+        game.generators.push(new shipGenerator(game.gameWidth/2 + Math.random()*game.gameWidth/2-game.gameWidth/4,game.gameHeight/2 + Math.random()*game.gameHeight/2-game.gameHeight/4 , 3, 3, 5, this.weapons.Bomb));
+        game.generators.push(new shipGenerator(game.gameWidth/2 + Math.random()*game.gameWidth/2-game.gameWidth/4,game.gameHeight/2 + Math.random()*game.gameHeight/2-game.gameHeight/4 , 3, 3, 5, this.weapons.Well));
+        */
+         
+        
+}
