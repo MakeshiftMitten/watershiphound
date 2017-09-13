@@ -29,7 +29,7 @@ function drawCameraCentricObject(cameraX, cameraY){
             ctx.beginPath();
             ctx.fillStyle = "#000000";     
             ctx.rect(0, gameCanvas.height - gameYToCanvasY(20), gameCanvas.width, gameCanvas.height);       
-                draw.drawInfoText(10, 15, "Life: " + Math.floor(game.players[0].currentLife));
+                draw.drawInfoText(10, 15, "Hunger: " + Math.floor(game.players[0].currentLife));
                 draw.drawInfoText(10, 12, "Carrots collected: " + game.carrotsFound);
                 draw.drawInfoText(30, 15, "Level: " + game.level);
                 draw.drawInfoText(30, 12, "Next Level: " + (Math.ceil(game.level*game.level) - game.carrotsFound) + " Carrots");
@@ -83,8 +83,8 @@ function drawCameraCentricObject(cameraX, cameraY){
 
 
             
-            ctx.rect(gameXToCanvasX(-ship.width/2 - ship.width), gameYToCanvasY(0), gameXToCanvasX(gameWidth/2), gameYToCanvasY(gameHeight));            
-             ctx.rect(gameXToCanvasX(ship.width), gameYToCanvasY(0), gameXToCanvasX(gameWidth/2), gameYToCanvasY(gameHeight));
+            ctx.rect(gameXToCanvasX(-ship.width/2 - ship.width), gameYToCanvasY(ship.legWobble), gameXToCanvasX(gameWidth/2), gameYToCanvasY(gameHeight));            
+             ctx.rect(gameXToCanvasX(ship.width), gameYToCanvasY(ship.legWobble), gameXToCanvasX(gameWidth/2), gameYToCanvasY(gameHeight));
              ctx.rect(gameXToCanvasX(-ship.height/2), gameYToCanvasY(ship.height/8), gameXToCanvasX(ship.height), gameYToCanvasY(ship.width*2));
              ctx.rect(gameXToCanvasX(-.5), gameYToCanvasY(-ship.height/8), gameXToCanvasX(1), gameYToCanvasY(1));
              ctx.rect(gameXToCanvasX(-.75), gameYToCanvasY(-ship.height/9), gameXToCanvasX(.5), gameYToCanvasY(2));

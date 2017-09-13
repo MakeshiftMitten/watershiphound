@@ -53,6 +53,7 @@ function gameObject(){
     
     this.yumTimer = 0;
     this.brambleTimer = 0;
+    this.legTimer = .2;
     //Timers
     
     //Game Objects            

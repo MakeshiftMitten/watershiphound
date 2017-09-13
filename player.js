@@ -28,7 +28,7 @@ function player(x, y){
     this.metabolism = .05;
 
     this.turnSpeed = 2;
-
+    this.legWobble = .3;
 
     this.right = function(){return this.x + this.width/2;};
     this.left = function(){return this.x - this.width/2};
@@ -42,7 +42,6 @@ function player(x, y){
     this.draw = function(){
         
         draw.drawPlayerRect(game.gameWidth/2, game.gameHeight/2, this.width, this.height, this.orientation);   
-        draw.drawText(game.gameWidth/2, game.gameHeight/2, this.x + "," + this.y);  
 
         if(this.currentLife <= 0)
         {
@@ -63,6 +62,7 @@ function player(x, y){
     }        
             
     this.update = function(dt){
+
 
         this.currentLife-=this.metabolism;
         //Update Cooldowns

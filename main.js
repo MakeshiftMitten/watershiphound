@@ -73,6 +73,17 @@ function update(dt){
     game.carrotTimer -= dt;
     game.yumTimer -= dt;
     game.brambleTimer -= dt;
+    if(game.players[0].velocity > 10)
+    {
+    game.legTimer -= dt;
+}
+
+    if(game.legTimer < 0)
+    {
+        game.players[0].legWobble *= -1;
+        game.legTimer =.2;
+
+    }
 
     if(game.carrotTimer < 0)
     {
